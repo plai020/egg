@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #FBC02D;
+  --bg-creamy: #FFFBF0;
+  --bg-yellow-soft: #FFFDE7;
+  --text-dark: #333333;
+  --text-muted: #666666;
+  --card-bg: #FFFFFF;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-creamy);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+.app-container {
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* Home Layout */
+.home-container {
+  padding: 20px;
+}
+
+.app-header {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.app-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.header-icon {
+  color: var(--primary-color);
+}
+
+/* Toggle Switch */
+.toggle-container {
+  background: var(--bg-yellow-soft);
+  padding: 8px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: calc(var(--radius-lg) - 4px);
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background: var(--card-bg);
+  color: var(--text-dark);
+  box-shadow: var(--shadow);
+}
+
+/* Data Cards */
+.price-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.data-card {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-label {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.card-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.card-price {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.card-trend {
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.trend-up {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.trend-down {
+  background: #FFEBEE;
+  color: #C62828;
+}
+
+.trend-neutral {
+  background: #F5F5F5;
+  color: #757575;
+}
+
+/* Chart Section */
+.chart-section {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  margin-top: 8px;
+}
+
+/* Status States */
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  gap: 16px;
+}
+
+.status-container p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+  color: var(--primary-color);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.retry-btn {
+  margin-top: 16px;
+  padding: 12px 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Responsive Overrides for iPhone */
+@media (max-width: 390px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  .card-price {
+    font-size: 2.4rem;
+  }
+}
