@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import { format, subDays } from 'date-fns';
 import { Egg, TrendingUp, ChevronRight, Loader2, AlertCircle } from 'lucide-react';
 import PriceChart from '../components/PriceChart';
@@ -30,10 +30,20 @@ const Home = () => {
       : `${API_URL}?StartDate=${startDate}&EndDate=${endDate}`;
 
     try {
-      const response = await axios.get(url);
-      if (Array.isArray(response.data)) {
+      // 使用原生 fetch 並移除自定義 Header 以避開 Preflight 檢查
+      // 這樣能將請求轉為「簡單請求 (Simple Request)」
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+      });
+
+      if (!response.ok) throw new Error('網路回應不正確');
+      
+      const jsonData = await response.json();
+
+      if (Array.isArray(jsonData)) {
         // 資料映射處理
-        const mappedData = response.data.map(item => ({
+        const mappedData = jsonData.map(item => ({
           date: item['日期'],
           egg_origin: parseFloat(item['雞蛋(產地價)']) || 0,
           egg_transport: parseFloat(item['雞蛋(大運輸價)']) || 0,
@@ -48,14 +58,16 @@ const Home = () => {
       }
     } catch (err) {
       console.error('Fetch error:', err);
-      setError('無法取得資料，請確認網路連線或 CORS 設定。');
-      // 如果是 CORS 報錯，這通常是開發環境的常見問題
-      if (err.message.includes('Network Error')) {
-        setError('偵測到跨網域 (CORS) 限制。請部署 GAS 代理轉發器並更新 PROXY_URL。');
+      setError('無法取得資料，請確認網路連線或 GAS 代理設定。');
+      
+      // 如果發生錯誤，嘗試給予更明確的提示
+      if (err.message === 'Failed to fetch') {
+        setError('偵測到跨網域 (CORS) 限制或網路錯誤。請確保 GAS 已正確部署為「任何人」皆可存取。');
       }
     } finally {
       setLoading(false);
     }
+
   };
 
   const getLatestPrice = (key) => {
