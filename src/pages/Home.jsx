@@ -6,7 +6,7 @@ import PriceChart from '../components/PriceChart';
 
 const API_URL = "https://data.moa.gov.tw/Service/OpenData/FromM/PoultryTransBoiledChickenData.aspx";
 // 如果遇到 CORS 問題，請將下方改為您的 GAS 部署網址
-const PROXY_URL = ""; 
+const PROXY_URL = "https://script.google.com/macros/s/AKfycbyZnFoFxFRuTJCROmKXUKzkTG4xBCql7BXF-LnO10UYys0m7sehefhpNG2_J30FpdGt/exec"; 
 
 const Home = () => {
   const [activeCategory, setActiveCategory] = useState('egg'); // 'egg' or 'chicken'
